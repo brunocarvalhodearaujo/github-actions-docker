@@ -6,7 +6,6 @@ services:
     image: github-actions-runner
     restart: unless-stopped
     privileged: true
-    user: root
     environment:
       GITHUB_URL: ${GITHUB_URL:-}
       GITHUB_TOKEN: ${GITHUB_TOKEN:-}
