@@ -11,7 +11,7 @@ services:
       GITHUB_TOKEN: ${GITHUB_TOKEN:-}
     volumes:
       - ./start.sh:/start.sh
-      - /var/run/docker.sock:/var/run/docker.sock
+      #- /var/run/docker.sock:/var/run/docker.sock
     deploy:
       mode: replicated
       replicas: ${REPLICAS:-1}
