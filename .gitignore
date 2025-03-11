@@ -1,0 +1,33 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# folders
+.idea
+.vscode/*
+.scannerwork/*
+database
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
+!.vscode/settings.json
+nbproject
+node_modules
+.npm/
+.config/
+coverage/
+dist/
+src/apollo/schemas/resolvers.d.ts
+junit.xml
+core
+code-coverage-results.md
+
+# files
+*.DS_Store
+*._*
+*.log
+*.env
+*.lock
+*.sqlite
+*.ash_history
+schema.gql
+schema.graphql
+index.html
