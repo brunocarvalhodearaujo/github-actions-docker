@@ -3,9 +3,13 @@ name: github-actions
 services:
   runner:
     build: .
-    restart: always
-    env_file:
-      - .env
+    image: github-actions-runner
+    restart: unless-stopped
+    environment:
+      GITHUB_URL: ${GITHUB_URL:-}
+      GITHUB_TOKEN: ${GITHUB_TOKEN:-}
+    volumes:
+      - ./start.sh:/start.sh
     deploy:
       mode: replicated
-      replicas: 1
+      replicas: ${REPLICAS:-1}
