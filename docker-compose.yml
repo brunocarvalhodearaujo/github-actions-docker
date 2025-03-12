@@ -1,18 +1,40 @@
 name: github-actions
 
+networks:
+  internal:
+    driver: bridge
+
 services:
+  docker-dind:
+    image: docker:dind
+    command: ["dockerd", "-H", "tcp://0.0.0.0:2375", "--tls=false"]
+    restart: unless-stopped
+    privileged: true
+    volumes:
+      - /var/lib/docker
+    networks:
+      - internal
   runner:
     build: .
     image: github-actions-runner
     restart: unless-stopped
+    entrypoint: sleep 3600
     privileged: true
+    user: root
     environment:
+      DOCKER_HOST: tcp://docker-dind:2375
+      DOCKER_TLS_CERTDIR: ""
+      DOCKER_DRIVER: overlay2
       GITHUB_URL: ${GITHUB_URL:-}
       GITHUB_TOKEN: ${GITHUB_TOKEN:-}
-      DOCKER_HOST: tcp://0.0.0.0:2375
     volumes:
       - ./start.sh:/start.sh
-      #- /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - internal
+    depends_on:
+      docker-dind:
+        condition: service_started
+        required: true
     deploy:
       mode: replicated
       replicas: ${REPLICAS:-1}
