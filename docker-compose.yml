@@ -18,7 +18,6 @@ services:
     build: .
     image: github-actions-runner
     restart: unless-stopped
-    entrypoint: sleep 3600
     privileged: true
     user: root
     environment:
